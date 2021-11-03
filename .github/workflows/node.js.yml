@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+ build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,10 +18,17 @@ jobs:
         run: |
           npm install
           npm run build
+      - uses: actions/upload-artifact@main
+        with:
+          name: webpack artifacts
+          path: public/
     
     test: 
         runs-on: ubuntu-latest
-        strategy:
+          - uses: actions/upload-artifact@master
+              with:
+                name: webpack artifacts
+                path: public/
           matrix:
             os: [ubuntu-latest, windows-2016]
             node-version: [12.x, 14.x]
